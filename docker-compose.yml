@@ -1,0 +1,16 @@
+appbuilder:
+  image: appbuilder-jenkins
+  mem_limit: 512m
+  ports:
+   - "80:8080"
+   - "50000:50000"
+  volumes:
+   - "/data:/data"
+  env_file:
+   - ./local.env
+slave:
+  image: silintl/appbuilder-agent
+  mem_limit: 1024m
+  links:
+    - appbuilder:appbuilder-master
+  command: -master http://appbuilder-master:8080
