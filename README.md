@@ -52,13 +52,16 @@ all beneath one directory know as the "Jenkins Home".
 Plugins are installed as part of the Docker build process.  The complete list of
 plugins (including dependencies) must be in the file build/plugins.txt
 
-Any configuration changes from the base image are done using groovy scripts during
-startup.  These groovy scripts are located in build/init.groovy.d. See the docs at
+Any configuration changes from the base image are done using groovy scripts
+during startup.  These groovy scripts are located in build/init.groovy.d.
+See the docs at
 [Configuring Jenkins upon start up](https://wiki.jenkins-ci.org/display/JENKINS/Configuring+Jenkins+upon+start+up)
 and [Overview: Jenkins main module API](http://javadoc.jenkins-ci.org/).
 
 
-Some configuration is not exposed out to modification by groovy.  In this case, it
-might be possible to include the preformatted xml configuration in build/jenkins_home.
-NOTE: First, attempt to find a way to affect the configuration using scripting.  Only
-place configuration in build/jenkins_home as a last resort.
+Some configuration is not exposed out to modification by groovy.  In this case,
+it might be possible to include the preformatted xml configuration in
+build/jenkins_home.
+
+NOTE: First, attempt to find a way to affect the configuration using scripting.
+Only place configuration in build/jenkins_home as a last resort.
