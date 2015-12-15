@@ -202,9 +202,6 @@ end
      # pulls any images not preloaded)
      cd /vagrant
 
-     # Build doorman-api image for use by api, cron, and division services
-     docker build -t appbuilder-jenkins .
-
      # Start services
      docker-compose up -d
 

@@ -33,7 +33,7 @@ If you change the Dockerfile, you will need to run these commands:
     cd /vagrant
     docker-compose stop
     docker-compose rm -f
-    docker-compose build -t appbuilder-jenkins .
+    docker-compose build
     docker-compose up -d
 
 If you find yourself doing a `vagrant destroy` and then `vagrant up` repeatedly,

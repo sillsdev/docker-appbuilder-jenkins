@@ -1,5 +1,5 @@
 appbuilder:
-  image: appbuilder-jenkins
+  build: .
   mem_limit: 512m
   ports:
    - "80:8080"
