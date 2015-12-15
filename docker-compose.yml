@@ -4,8 +4,6 @@ appbuilder:
   ports:
    - "80:8080"
    - "50000:50000"
-  volumes:
-   - "/data:/data"
   env_file:
    - ./local.env
 slave:
