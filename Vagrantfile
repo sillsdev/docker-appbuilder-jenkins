@@ -205,17 +205,6 @@ end
      # Start services
      docker-compose up -d
 
-     # Warn about the initial repository sync:
-     cat <<-EOF 1>&2
-
-	If you can't connect to Jenkins within a reasonable amount of time,
-	check the contents of data/jenkins_home. The Jenkins container
-	will first sync from S3 to data/jenkins_home; if jenkins_home does
-	does not exist, the synchronization will have to copy all the files
-	down, and this may take a while.
-	
-	EOF
-
      # Update the preload image directory with any new (or changed) images
      if mount | grep /preload-images 1>/dev/null; then
        echo "Adding images in /preload-images."
