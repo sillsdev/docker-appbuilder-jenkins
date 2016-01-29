@@ -57,6 +57,12 @@ def configXml = """\
 </project>
 """
 def gitUrl = System.getenv('APPBUILDER_JOB_WRAPPER_GIT_URL');
+println 'Starting debug'
+for (p in Jenkins.instance.allItems) {
+    if (!p.name.startsWith(jobName)) continue
+    println '- ' + p.name
+
+}
 if (gitUrl?.trim()) {
     configXml = configXml.replaceAll('JOB_WRAPPER_GIT_URL', gitUrl);
 }
