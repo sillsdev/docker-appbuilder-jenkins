@@ -16,21 +16,33 @@ import java.nio.file.Files
 domain = Domain.global()
 credentialStore = Jenkins.instance.getExtensionList('com.cloudbees.plugins.credentials.SystemCredentialsProvider')[0].getStore()
 
-privateKeyFile = new File("/usr/share/jenkins/secrets/jenkins_ssh/id_rsa")
-privateKey = new BasicSSHUserPrivateKey(
+privateKeyAppBuilderFile = new File("/usr/share/jenkins/secrets/jenkins/jenkins_ssh/id_rsa")
+privateKeyAppBuilder = new BasicSSHUserPrivateKey(
 CredentialsScope.GLOBAL,
 'appbuilder-buildagent',
 'AppBuilderBuildAgent',
 new BasicSSHUserPrivateKey.DirectEntryPrivateKeySource(
-	FileUtils.readFileToString(privateKeyFile, "iso-8859-1")),
+	FileUtils.readFileToString(privateKeyAppBuilderFile, "iso-8859-1")),
 "", //Passphrase
-"AppBuilder BuildAgent SSH Key" // Description
+"AppBuilder SSH Key" // Description
 )
-credentialStore.addCredentials(domain, privateKey)
+credentialStore.addCredentials(domain, privateKeyAppBuilder)
+
+privateKeyBuildEngineFile = new File("/usr/share/jenkins/secrets/buildengine_api/ssh/id_rsa")
+privateKeyBuildEngine = new BasicSSHUserPrivateKey(
+CredentialsScope.GLOBAL,
+'buildengine',
+'BuildEngine',
+new BasicSSHUserPrivateKey.DirectEntryPrivateKeySource(
+	FileUtils.readFileToString(privateKeyBuildEngineFile, "iso-8859-1")),
+"", //Passphrase
+"BuildEngine SSH Key" // Description
+)
+credentialStore.addCredentials(domain, privateKeyBuildEngine)
 
 factory = new DiskFileItemFactory();
 
-new File("/usr/share/jenkins/secrets/google_play_store").eachDir() { dir ->
+new File("/usr/share/jenkins/secrets/jenkins/google_play_store").eachDir() { dir ->
 	store = dir.getName()
 	txtFile = ~/.*\.txt/
 	dir.eachFileMatch(txtFile) { file ->

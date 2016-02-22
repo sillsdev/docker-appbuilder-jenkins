@@ -19,7 +19,7 @@ def configXml = """\
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
         <url>JOB_WRAPPER_GIT_URL</url>
-        <credentialsId>appbuilder-buildagent</credentialsId>
+        <credentialsId>buildengine</credentialsId>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
