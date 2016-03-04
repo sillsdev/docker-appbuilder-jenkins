@@ -16,11 +16,11 @@ import java.nio.file.Files
 domain = Domain.global()
 credentialStore = Jenkins.instance.getExtensionList('com.cloudbees.plugins.credentials.SystemCredentialsProvider')[0].getStore()
 
-privateKeyAppBuilderFile = new File("/usr/share/jenkins/secrets/jenkins/jenkins_ssh/id_rsa")
+privateKeyAppBuilderFile = new File("/usr/share/jenkins/secrets/jenkins/appbuilder_ssh/id_rsa")
 privateKeyAppBuilder = new BasicSSHUserPrivateKey(
 CredentialsScope.GLOBAL,
 'appbuilder-buildagent',
-'AppBuilderBuildAgent',
+'AppBuilder',
 new BasicSSHUserPrivateKey.DirectEntryPrivateKeySource(
 	FileUtils.readFileToString(privateKeyAppBuilderFile, "iso-8859-1")),
 "", //Passphrase

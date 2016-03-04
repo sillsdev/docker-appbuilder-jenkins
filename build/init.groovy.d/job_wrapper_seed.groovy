@@ -1,4 +1,6 @@
 import jenkins.model.*
+import hudson.model.*
+import javax.xml.transform.stream.*
 
 def jobName = "Job-Wrapper-Seed"
 def configXml = """\
@@ -56,20 +58,28 @@ def configXml = """\
   <buildWrappers/>
 </project>
 """
-def gitUrl = System.getenv('APPBUILDER_JOB_WRAPPER_GIT_URL');
-println 'Starting debug'
-for (p in Jenkins.instance.allItems) {
-    if (!p.name.startsWith(jobName)) continue
-    println '- ' + p.name
+def gitUrl = System.getenv('BUILD_ENGINE_REPO_URL');
+def gitUser = System.getenv('BUILD_ENGINE_GIT_SSH_USER');
 
+if (gitUser) {
+  gitUrl = "ssh://" + gitUser + "@" + gitUrl.substring(6);
 }
+println "GitURL: " + gitUrl;
+
 if (gitUrl?.trim()) {
     configXml = configXml.replaceAll('JOB_WRAPPER_GIT_URL', gitUrl);
 }
-def gitBranch = System.getenv('APPBUILDER_JOB_WRAPPER_GIT_BRANCH');
+def gitBranch = System.getenv('BUILD_ENGINE_REPO_BRANCH');
 if (gitBranch?.trim()) {
 	configXml = configXml.replaceAll('JOB_WRAPPER_GIT_BRANCH', gitBranch);
 }
 
 def xmlStream = new ByteArrayInputStream(configXml.getBytes())
-Jenkins.instance.createProjectFromXML(jobName, xmlStream)
+job = Jenkins.instance.getItemByFullName(jobName, AbstractItem)
+if (job) {
+  println "Updating job:" + jobName
+  job.updateByXml(new StreamSource(xmlStream))
+} else {
+  println "Creating job:" + jobName
+  Jenkins.instance.createProjectFromXML(jobName, xmlStream)
+}
