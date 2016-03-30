@@ -2,7 +2,10 @@ import jenkins.model.*
 import hudson.model.*
 import javax.xml.transform.stream.*
 
-def jobName = "Job-Wrapper-Seed"
+def buildJobName = "Build-Wrapper-Seed"
+def publishJobName = "Publish-Wrapper-Seed"
+def publishFiles = "groovy/*_publish.groovy"
+def buildFiles = "groovy/*_build.groovy"
 def configXml = """\
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
@@ -45,7 +48,7 @@ def configXml = """\
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <javaposse.jobdsl.plugin.ExecuteDslScripts plugin="job-dsl@1.38">
-      <targets>groovy/*.groovy</targets>
+      <targets>GROOVY_FILES</targets>
       <usingScriptText>false</usingScriptText>
       <ignoreExisting>false</ignoreExisting>
       <removedJobAction>DELETE</removedJobAction>
@@ -74,12 +77,23 @@ if (gitBranch?.trim()) {
 	configXml = configXml.replaceAll('JOB_WRAPPER_GIT_BRANCH', gitBranch);
 }
 
-def xmlStream = new ByteArrayInputStream(configXml.getBytes())
-job = Jenkins.instance.getItemByFullName(jobName, AbstractItem)
-if (job) {
-  println "Updating job:" + jobName
-  job.updateByXml(new StreamSource(xmlStream))
+buildConfigXml = configXml.replaceAll('GROOVY_FILES', buildFiles);
+def buildXmlStream = new ByteArrayInputStream(buildConfigXml.getBytes())
+buildJob = Jenkins.instance.getItemByFullName(buildJobName, AbstractItem)
+if (buildJob) {
+  println "Updating job:" + buildJobName
+  buildJob.updateByXml(new StreamSource(buildXmlStream))
 } else {
-  println "Creating job:" + jobName
-  Jenkins.instance.createProjectFromXML(jobName, xmlStream)
+  println "Creating job:" + buildJobName
+  Jenkins.instance.createProjectFromXML(buildJobName, buildXmlStream)
+}
+publishConfigXml = configXml.replaceAll('GROOVY_FILES', publishFiles);
+def publishXmlStream = new ByteArrayInputStream(publishConfigXml.getBytes())
+publishJob = Jenkins.instance.getItemByFullName(publishJobName, AbstractItem)
+if (publishJob) {
+  println "Updating job:" + publishJobName
+  publishJob.updateByXml(new StreamSource(publishXmlStream))
+} else {
+  println "Creating job:" + publishJobName
+  Jenkins.instance.createProjectFromXML(publishJobName, publishXmlStream)
 }
