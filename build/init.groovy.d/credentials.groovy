@@ -82,26 +82,18 @@ if (googlePlayPublishFolder.exists()) {
     new File("/usr/share/jenkins/secrets/jenkins/publish/google_play_store").eachDir() { dir ->
         store = dir.getName()
 
-        playstoreApiIssuer = new File(dir, "playstore_api_issuer.txt")
-        playstoreApiIssuerSecretText = new StringCredentialsImpl(
-                            CredentialsScope.GLOBAL,
-                            store+"-playstore-api-issuer",
-                            store+" Playstore API Issuer",
-                            Secret.fromString(playstoreApiIssuer.text))
-        credentialStore.addCredentials(domain, (Credentials) playstoreApiIssuerSecretText)
-
-        playstoreApiKey = new File(dir, "playstore_api_key.p12")
-        dfi = factory.createItem("", "application/octet-stream", false, playstoreApiKey.getName())
+        playstoreApiJson = new File(dir, "playstore_api.json")
+        dfi = factory.createItem("", "application/octet-stream", false, playstoreApiJson.getName())
         out = dfi.getOutputStream()
-        java.nio.file.Files.copy(playstoreApiKey.toPath(), out);
-        playstoreApiKeySecretFile = new FileCredentialsImpl(
+        java.nio.file.Files.copy(playstoreApiJson.toPath(), out);
+        playstoreApiJsonSecretFile = new FileCredentialsImpl(
             CredentialsScope.GLOBAL,
-            store+"-playstore-api-key",
-            store+" Playstore API Key",
+            store+"-playstore-api-json",
+            store+" Playstore API JSON",
             dfi,
             "",
             "")
-        credentialStore.addCredentials(domain, (Credentials) playstoreApiKeySecretFile)
+        credentialStore.addCredentials(domain, (Credentials) playstoreApiJsonSecretFile)
     }    
 }
 // Delete all the secret files after importing
