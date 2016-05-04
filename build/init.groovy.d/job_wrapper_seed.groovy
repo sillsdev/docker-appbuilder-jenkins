@@ -4,8 +4,8 @@ import javax.xml.transform.stream.*
 
 def buildJobName = "Build-Wrapper-Seed"
 def publishJobName = "Publish-Wrapper-Seed"
-def publishFiles = "groovy/*_publish.groovy"
-def buildFiles = "groovy/*_build.groovy"
+def publishFiles = "groovy/publish_*.groovy"
+def buildFiles = "groovy/build_*.groovy"
 def configXml = """\
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
