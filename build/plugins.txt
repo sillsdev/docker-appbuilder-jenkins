@@ -8,7 +8,7 @@ git:2.4.0
 git-server:1.5
 github-api:1.69
 github:1.14.0
-job-dsl:1.39
+job-dsl:1.45
 logentries:0.0.2
 plain-credentials:1.1
 scm-api:0.2
