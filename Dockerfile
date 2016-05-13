@@ -1,4 +1,4 @@
-FROM jenkins:1.609.2
+FROM jenkins:1.651.2
 MAINTAINER <Chris Hubbard> "chris_hubbard@sil.org"
 
 USER root
