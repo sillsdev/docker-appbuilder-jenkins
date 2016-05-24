@@ -1,3 +1,4 @@
+build-timeout:1.16
 copyartifact:1.38
 credentials:1.28
 credentials-binding:1.7
