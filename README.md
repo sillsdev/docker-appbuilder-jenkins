@@ -6,7 +6,7 @@ Jenkins Continous Integration build server for building mobile apps.
 Essentially, this project has two components; a Dockerfile configuring a main,
 master Jenkins build server, and a Dockerfile configuring slave build
 containers. The slave Dockerfile is located in a separate repository, at
-[https://bitbucket.org/silintl/docker-appbuilder-agent](https://bitbucket.org/silintl/docker-appbuilder-agent).
+[docker-appbuilder-agent](https://github.com/sillsdev/docker-appbuilder-agent).
 
 This repository contains the master build server Dockerfile, configuration
 files specific to Codeship (a Continous Integration as a Service provider), and
