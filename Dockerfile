@@ -19,7 +19,6 @@ RUN chmod a+x /usr/local/bin/s3-expand
 #RUN chmod a+x /usr/local/bin/debug.sh
 
 COPY build/init.groovy.d/ /usr/share/jenkins/ref/init.groovy.d/
-COPY build/jenkins_home/ ${JENKINS_HOME}
 
 COPY build/plugins.txt /usr/share/jenkins/ref/
 RUN /usr/local/bin/plugins.sh /usr/share/jenkins/ref/plugins.txt
