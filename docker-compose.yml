@@ -9,7 +9,7 @@ appbuilder:
    - ./local.env
 slave:
   container_name: slave
-  image: silintl/appbuilder-agent
+  image: sillsdev/appbuilder-agent:staging
   mem_limit: 1024m
   links:
     - appbuilder:appbuilder-master
