@@ -12,6 +12,7 @@ plain-credentials:1.1
 scm-api:1.2
 structs:1.1
 swarm:2.0
+timestamper:1.8.7
 token-macro:1.12.1
 workflow-step-api:1.14
 xvfb:1.1.3
